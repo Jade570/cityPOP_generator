@@ -1,85 +1,136 @@
 let rotz, left, right, rotsave;
 let tx, ty, tz;
-let go, back, versave, horsave;
+let go, back;
 let dirtoken; //
 
 //&& playing===true && drum[0].isPlaying() === false
-
-function gostraight() {
+function gostraight(x, y) {
 
   if (go == true) {
-    switch (dirtoken % 4) {
-      case 0: //y++
-        ty += BUILDING_MAX_SIZE / 40;
-        if (ty - versave >= BUILDING_MAX_SIZE) {
-          ty = versave + BUILDING_MAX_SIZE;
-          versave = ty;
-          go = false;
-
-        }
-        break;
-
-      case 1: //x++
-        tx += BUILDING_MAX_SIZE / 40;
-        if (tx - horsave >= BUILDING_MAX_SIZE) {
-          tx = horsave + BUILDING_MAX_SIZE;
-          horsave = tx;
+    switch(dirtoken % 4){
+      case 0:
+      console.log('ty: '+ty+' y: '+y*GRID_SIZE);
+        ty += 10;
+        if (y*GRID_SIZE-ty <= 0) {
+          ty = y*GRID_SIZE;
           go = false;
         }
         break;
 
-        case 2: //y--
-          ty -= BUILDING_MAX_SIZE / 40;
-          if (ty - versave <= -BUILDING_MAX_SIZE) {
-            ty = versave - BUILDING_MAX_SIZE;
-            versave = ty;
-            go = false;
-          }
-          break;
+      case 1:
+        tx += 10;
+        if (tx-x*GRID_SIZE >= 0) {
+          tx = x*GRID_SIZE;
+          go = false;
+        }
+        break;
 
-        case 3: //x--
-          tx -= BUILDING_MAX_SIZE / 40;
-          if (tx - horsave <= -BUILDING_MAX_SIZE) {
-            tx = horsave - BUILDING_MAX_SIZE;
-            horsave = tx;
-            go = false;
-          }
-          break;
-    }
-  }
+      case 2:
+        ty -= 10;
+        if (ty-y*GRID_SIZE <= 0) {
+          ty = y*GRID_SIZE;
+          go = false;
+        }
+        break;
 
-}
-
-function goback() {
-  if (back == true) {
-    ty -= BUILDING_MAX_SIZE / 40;
-
-    if (ty - versave <= -BUILDING_MAX_SIZE) {
-      ty = versave - BUILDING_MAX_SIZE;
-
-      versave = ty;
-      back = false;
+      case 3:
+      console.log('ty: '+tx+' y: '+x*GRID_SIZE);
+        tx -= 10;
+        if (tx-x*GRID_SIZE <= 0) {
+          tx = x*GRID_SIZE;
+          go = false;
+        }
+        break;
     }
   }
 }
 
-function turnleft() {
+function turnleft(x, y) {
+  //console.log(dirtoken%4);
   if (left == true) {
-    rotz += HALF_PI / 40;
+    rotz += HALF_PI / 10;
 
     switch (dirtoken % 4) {
       case 0:
-        ty += BUILDING_MAX_SIZE / 40;
-        tx -= BUILDING_MAX_SIZE / 40;
+      tx-= 10;
+      ty+= 5;
+        if(rotz%PI>=HALF_PI){
+          rotz = HALF_PI;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
+          if (dirtoken == 0) {
+            dirtoken = 3;
+          } else {
+            dirtoken--;
+          }
+          left = false;
+        }
 
-        if (rotz - rotsave >= HALF_PI) {
+      break;
+
+      case 1:
+      tx+= 5;
+      ty+= 10;
+        if(rotz%PI==0){
+          rotz = PI;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
+          if (dirtoken == 0) {
+            dirtoken = 3;
+          } else {
+            dirtoken--;
+          }
+          left = false;
+        }
+
+      break;
+
+      case 2:
+      tx+= 10;
+      ty-= 5;
+        if(rotz%PI>=HALF_PI){
+          rotz = HALF_PI*3;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
+          if (dirtoken == 0) {
+            dirtoken = 3;
+          } else {
+            dirtoken--;
+          }
+          left = false;
+        }
+
+      break;
+
+      case 3:
+      tx-= 5;
+      ty-= 10;
+        if(rotz%PI==0){
+          rotz = TWO_PI;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
+          if (dirtoken == 0) {
+            dirtoken = 3;
+          } else {
+            dirtoken--;
+          }
+          left = false;
+        }
+
+      break;
+    }
+
+/*
+      case 0:
+        ty += 10;
+        tx -= 10;
+
+        if (tx - x*GRID_SIZE <= 0) {
           rotz = rotsave + HALF_PI;
-          ty = versave + BUILDING_MAX_SIZE;
-          tx = horsave - BUILDING_MAX_SIZE;
+          ty = y*GRID_SIZE;
+          tx = x*GRID_SIZE;
 
           rotsave = rotz;
-          versave = ty;
-          horsave = tx;
 
           if (dirtoken == 0) {
             dirtoken = 3;
@@ -91,17 +142,16 @@ function turnleft() {
         break;
 
       case 1:
-        ty += BUILDING_MAX_SIZE / 40;
-        tx += BUILDING_MAX_SIZE / 40;
+        ty += 10;
+        tx += 10;
 
-        if (rotz - rotsave >= HALF_PI) {
+        if (ty - y*GRID_SIZE >= 0) {
           rotz = rotsave + HALF_PI;
-          ty = versave + BUILDING_MAX_SIZE;
-          tx = horsave + BUILDING_MAX_SIZE;
+          ty =  y*GRID_SIZE;
+          tx =  x*GRID_SIZE;
 
           rotsave = rotz;
-          versave = ty;
-          horsave = tx;
+
 
           if (dirtoken == 0) {
             dirtoken = 3;
@@ -113,17 +163,16 @@ function turnleft() {
         break;
 
       case 2:
-        ty -= BUILDING_MAX_SIZE / 40;
-        tx += BUILDING_MAX_SIZE / 40;
+        ty -= 10;
+        tx += 10;
 
-        if (rotz - rotsave >= HALF_PI) {
+        if (tx - x*GRID_SIZE >= 0) {
           rotz = rotsave + HALF_PI;
-          ty = versave - BUILDING_MAX_SIZE;
-          tx = horsave + BUILDING_MAX_SIZE;
+          ty =  y*GRID_SIZE;
+          tx =  x*GRID_SIZE;
 
           rotsave = rotz;
-          versave = ty;
-          horsave = tx;
+
 
           if (dirtoken == 0) {
             dirtoken = 3;
@@ -135,17 +184,16 @@ function turnleft() {
         break;
 
       case 3:
-        ty -= BUILDING_MAX_SIZE / 40;
-        tx -= BUILDING_MAX_SIZE / 40;
+        ty -= 10;
+        tx -= 10;
 
-        if (rotz - rotsave >= HALF_PI) {
+        if (ty - y*GRID_SIZE <= 0) {
           rotz = rotsave + HALF_PI;
-          ty = versave - BUILDING_MAX_SIZE;
-          tx = horsave - BUILDING_MAX_SIZE;
+          ty =  y*GRID_SIZE;
+          tx =  x*GRID_SIZE;
 
           rotsave = rotz;
-          versave = ty;
-          horsave = tx;
+
 
           if (dirtoken == 0) {
             dirtoken = 3;
@@ -155,108 +203,64 @@ function turnleft() {
           left = false;
         }
         break;
-
-
-
-
-
-
     }
-
-
-
+    */
   }
 }
 
-function turnright() {
+function turnright(x, y) {
   if (right == true) {
-    rotz -= HALF_PI / 40;
-
+    rotz -= HALF_PI / 10;
     switch (dirtoken % 4) {
-
       case 0:
-        ty += BUILDING_MAX_SIZE / 40;
-        tx += BUILDING_MAX_SIZE / 40;
-
-        if (rotz - rotsave <= -HALF_PI) {
-          rotz = rotsave - HALF_PI;
-          ty = versave + BUILDING_MAX_SIZE;
-          tx = horsave + BUILDING_MAX_SIZE;
-
-
-
-          rotsave = rotz;
-          versave = ty;
-          horsave = tx;
+      tx+=10;
+      ty+=5;
+        if (rotz % PI  <= HALF_PI) {
+          rotz = HALF_PI*3;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
           dirtoken++;
           right = false;
         }
         break;
 
       case 1:
-        ty -= BUILDING_MAX_SIZE / 40;
-        tx += BUILDING_MAX_SIZE / 40;
-
-        if (rotz - rotsave <= -HALF_PI) {
-          rotz = rotsave - HALF_PI;
-          ty = versave - BUILDING_MAX_SIZE;
-          tx = horsave + BUILDING_MAX_SIZE;
-
-
-          rotsave = rotz;
-          versave = ty;
-          horsave = tx;
+      tx+=5;
+      ty-=10;
+        if (rotz % PI == 0) {
+          rotz = PI;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
           dirtoken++;
           right = false;
         }
         break;
 
       case 2:
-        ty -= BUILDING_MAX_SIZE / 40;
-        tx -= BUILDING_MAX_SIZE / 40;
-
-        if (rotz - rotsave <= -HALF_PI) {
+      tx-=10;
+      ty-=5;
+        if (rotz % PI <= HALF_PI) {
         //  rotz = rotsave - HALF_PI;
-          ty = versave - BUILDING_MAX_SIZE;
-          tx = horsave - BUILDING_MAX_SIZE;
-
-
-
-          rotsave = rotz;
-          versave = ty;
-          horsave = tx;
+          rotz = HALF_PI;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
           dirtoken++;
           right = false;
         }
         break;
 
       case 3:
-        ty += BUILDING_MAX_SIZE / 40;
-        tx -= BUILDING_MAX_SIZE / 40;
-
-        if (rotz - rotsave <= -HALF_PI) {
-          rotz = rotsave - HALF_PI;
-          ty = versave + BUILDING_MAX_SIZE;
-          tx = horsave - BUILDING_MAX_SIZE;
-
-
-
+      tx-=5;
+      ty+=10;
+        if (rotz % PI == 0) {
+          rotz = 0;
+          tx = x*GRID_SIZE;
+          ty = y*GRID_SIZE;
           rotsave = rotz;
-          versave = ty;
-          horsave = tx;
           dirtoken++;
           right = false;
         }
         break;
-
-
-
-
-
-
     }
-
-
   }
-
 }

@@ -1,7 +1,7 @@
 
 function house(width, height, depth,px ,py ) {
   push();
-    translate(px*GRID_SIZE,py*GRID_SIZE,0);
+    translate(px*GRID_SIZE,py*GRID_SIZE,depth/2);
     let r = random(50,205);
     let g = random(50,205);
     let b = random(50,205);

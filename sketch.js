@@ -28,7 +28,7 @@ function preload() {
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
   colorMode(RGB);
-
+  frameRate(30);
   //volume slider;
   volume_sl = createSlider(0, 1, 0, 0.01);
   volume_sl.position(10, 30);
@@ -41,7 +41,6 @@ function setup() {
       grid[i][j] = false;
   }
 }
-
 
 
   for (let i = 0; i < 8; i++) {
@@ -69,10 +68,8 @@ function setup() {
   part.addPhrase(drumPhrase[4]);
 
   part.setBPM(60);
-  rotz = 0;
+  rotz = TWO_PI;
   rotsave = 0;
-  versave=0;
-  horsave=0;
   left = false;
   right = false;
   chordi = 1;
@@ -96,12 +93,22 @@ function draw() {
 
   push();
 
-  //translate(tx, ty, tz);
-  //rotateZ(rotz+PI);
 
-translate(0,0,0);
-//rotateX(HALF_PI/3*2);
-rotateZ(PI);
+
+
+  //translate(0,0,0);
+  //rotateZ(PI);
+  translate(tx, ty, 0);
+  rotateZ(PI);
+
+
+
+
+  //rotateX(rotz);
+
+//translate(0,0,0);
+//rotateX(-(HALF_PI/3*2));
+//rotateZ(PI);
 //plane(10000, 10000);
   // randomly determine building dimensions
 // building height
@@ -145,10 +152,9 @@ rotateZ(PI);
   }
 
   ///////////// control part /////////////
-  turnleft();
-  turnright();
-  gostraight();
-  goback();
+  turnleft(px[tree+1], py[tree+1]);
+  turnright(px[tree+1], py[tree+1]);
+  gostraight(px[tree+1],py[tree+1]);
 }
 
 
@@ -280,5 +286,5 @@ function keyPressed() {
   } else if (key === ' ') {
     stopChord();
   }
-console.log("px: "+px[tree]+" py: "+py[tree]);
+//console.log("px: "+px[tree]+" py: "+py[tree]);
 }
