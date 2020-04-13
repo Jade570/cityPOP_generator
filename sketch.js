@@ -21,7 +21,7 @@ function preload() {
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
   colorMode(RGB);
-  frameRate(30);
+  frameRate(60);
   //volume slider;
   volume_sl = createSlider(0, 1, 0.5, 0.01);
   volume_sl.position(10, 30);
@@ -35,7 +35,7 @@ function setup() {
   }
 }
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 4; i++) {
     if (i < 4) {
       chord[i] = new p5.Oscillator('triangle');
     }
@@ -60,7 +60,7 @@ function setup() {
   drumPhrase[4] = new p5.Phrase('drum[4]', playCrash, pat[4]);
   part.addPhrase(drumPhrase[4]);
 
-  part.setBPM(20);
+  part.setBPM(30);
   rotz = TWO_PI;
   rotsave = 0;
   left = false;
@@ -81,7 +81,7 @@ chordj = chordi % 7;
 }
 
 function draw() {
-chordj = chordi % 7;
+chordj = chordi % 4;
   background(217, 240, 255); //sky
   randomSeed(0);
 
@@ -178,7 +178,7 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
 function keyPressed() {
 
   if (keyCode === LEFT_ARROW) {
-    chordi++;
+    chordi+=1;
     playChord();
     right = true;
     tree ++;
@@ -249,7 +249,7 @@ function keyPressed() {
   }
   else if (keyCode ===RIGHT_ARROW) {
     if (chordi === 0) {
-      chordi = 6;
+      chordi = 3;
     } else {
       chordi--;
     }
