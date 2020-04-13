@@ -93,16 +93,16 @@ function draw() {
 
   fill(100);
   noStroke();
-  //plane(10000, 10000); // draw ground
-  //camera(0, 0, (height/2.0) / tan(PI*30.0 / 180.0), 0, 0, 0, 0, 1, 0);
+
   push();
 
   //translate(tx, ty, tz);
   //rotateZ(rotz+PI);
 
-translate(0,0,-100);
+translate(0,0,0);
+//rotateX(HALF_PI/3*2);
 rotateZ(PI);
-
+//plane(10000, 10000);
   // randomly determine building dimensions
 // building height
 

@@ -1,23 +1,32 @@
 
-function house(width, height, depth) {
-  box(width, height, depth);
-  beginShape(TRIANGLE_FAN);
-  let x =random(2, depth / 4);
-  let step = TWO_PI / 4;
-
-  let radius = width;//sqrt(pow(width, 2) + pow(height, 2))
-
-    vertex(0, 0, depth);
-
-    for (let i = 0; i<=4; i++){
-      let theta = i * step + HALF_PI/2;
-  vertex(cos(theta)*radius, sin(theta)*radius, depth/2);
-
-    }
-  endShape();
+function house(width, height, depth,px ,py ) {
   push();
-  translate(width/9*2, height/9*2, depth/3*2);
-  box(width/4, height/4, depth/2);
+    translate(px*GRID_SIZE,py*GRID_SIZE,0);
+    let r = random(50,205);
+    let g = random(50,205);
+    let b = random(50,205);
+    fill(r-50,g-50,b-50);
+    box(width, height, depth);
+    fill(r,g,b);
+    beginShape(TRIANGLE_FAN);
+    let x =random(2, depth / 4);
+    let step = TWO_PI / 4;
+
+    let radius = width;//sqrt(pow(width, 2) + pow(height, 2))
+
+      vertex(0, 0, depth);
+
+      for (let i = 0; i<=4; i++){
+        let theta = i * step + HALF_PI/2;
+    vertex(cos(theta)*radius, sin(theta)*radius, depth/2);
+
+      }
+    endShape();
+    push();
+    fill(r+50,g+50, b+50);
+    translate(width/9*2, height/9*2, depth/3*2);
+    box(width/4, height/4, depth/2);
+    pop();
   pop();
 }
 
@@ -485,6 +494,14 @@ function build(pi,num,dir){
       h = random(5, GRID_SIZE);
       d = random(5, GRID_SIZE);
       cherrytree(w,h,d,px[pi]+1,py[pi]);
+      w = random(20, GRID_SIZE);
+      h = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE);
+      house(w,h,d,px[pi]+2,py[pi]);
+      w = random(20, GRID_SIZE);
+      h = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE);
+      house(w,h,d,px[pi]-2,py[pi]);
       /*
         if(grid[px[pi]-1,py[pi]] == true){
           if(px[pi]-1,py[pi]==true){
@@ -511,6 +528,14 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi],py[pi]+1);
+        w = random(20, GRID_SIZE);
+        h = random(20, GRID_SIZE);
+        d = random(20, GRID_SIZE);
+        house(w,h,d,px[pi],py[pi]-2);
+        w = random(20, GRID_SIZE);
+        h = random(20, GRID_SIZE);
+        d = random(20, GRID_SIZE);
+        house(w,h,d,px[pi],py[pi]+2);
         break;
 
       case 2: //y--
@@ -520,6 +545,14 @@ function build(pi,num,dir){
       h = random(5, GRID_SIZE);
       d = random(5, GRID_SIZE);
       cherrytree(w,h,d,px[pi]+1,py[pi]);
+      w = random(20, GRID_SIZE);
+      h = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE);
+      house(w,h,d,px[pi]+2,py[pi]);
+      w = random(20, GRID_SIZE);
+      h = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE);
+      house(w,h,d,px[pi]-2,py[pi]);
       break;
 
       case 3: //x--
@@ -529,6 +562,14 @@ function build(pi,num,dir){
       h = random(5, GRID_SIZE);
       d = random(5, GRID_SIZE);
       cherrytree(w,h,d,px[pi],py[pi]+1);
+      w = random(20, GRID_SIZE);
+      h = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE);
+      house(w,h,d,px[pi],py[pi]-2);
+      w = random(20, GRID_SIZE);
+      h = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE);
+      house(w,h,d,px[pi],py[pi]+2);
       break;
     }
     break;
@@ -558,6 +599,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]+1,py[pi]+2);
+        for (let i = 0; i<4; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]-2,py[pi]+i);
+        }
+        for (let i = -1; i<2; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]+3);
+        }
         break;
 
       case 1:
@@ -584,6 +637,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]+2,py[pi]+1);
+        for (let i = -1; i<3; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+3,py[pi]+i);
+        }
+        for (let i = 0; i<3; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]+2);
+        }
 
         break;
 
@@ -610,6 +675,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]+1,py[pi]-2);
+        for (let i = -3; i<=0; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+2,py[pi]+i);
+        }
+        for (let i = -1; i<2; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]-3);
+        }
         break;
 
       case 3:
@@ -635,6 +712,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]-2,py[pi]+1);
+        for (let i = -2; i<2; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]-3,py[pi]+i);
+        }
+        for (let i = -3; i<1; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]-2);
+        }
         break;
     }
     break;
@@ -665,7 +754,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]+1,py[pi]+2);
-
+        for (let i = 0; i<3; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+2,py[pi]+i);
+        }
+        for (let i = -1; i<3; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]+3);
+        }
         break;
 
       case 1:
@@ -692,6 +792,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]+2,py[pi]+1);
+        for (let i = -2; i<2; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+3,py[pi]+i);
+        }
+        for (let i = 0; i<3; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]-2);
+        }
         break;
 
       case 2:
@@ -717,6 +829,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]+1,py[pi]-2);
+        for (let i = -3; i<1; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]-2,py[pi]+i);
+        }
+        for (let i = -1; i<2; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]-3);
+        }
         break;
 
       case 3:
@@ -743,7 +867,18 @@ function build(pi,num,dir){
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
         cherrytree(w,h,d,px[pi]-2,py[pi]+1);
-
+        for (let i = -1; i<3; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]-3,py[pi]+i);
+        }
+        for (let i = -3; i<1; i++){
+          w = random(20, GRID_SIZE);
+          h = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE);
+          house(w,h,d,px[pi]+i,py[pi]+2);
+        }
 
         break;
     }
