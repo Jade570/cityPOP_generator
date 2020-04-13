@@ -20,11 +20,11 @@ let playing;
 let part;
 let drum = []; //0hihat - 1open hihat - 2snare - 3kick - 4crash
 let pat = [];
-pat[0] = [1, 1, 1, 1];
-pat[1] = [0, 0, 0, 0];
-pat[2] = [0, 0, 1, 0];
-pat[3] = [1, 0, 0, 0];
-pat[4] = [0, 0, 0, 0];
+pat[0] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0];
+pat[1] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+pat[2] = [0, 0, 1, 0, 0, 0, 1, 0];
+pat[3] = [1, 0, 0, 0, 1, 1, 0, 0];
+pat[4] = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 let drumPhrase = [];
 
@@ -53,17 +53,10 @@ function playCrash(time, playbackRate) {
   drum[4].play(time);
 }
 
-/*
-function playpart() {
-  userStartAudio();
-
-}
-*/
 
 function playChord() {
   userStartAudio();
-  chordj = chordi % 7;
-  for (i = 0; i < 8; i++) {
+  for (i = 0; i < 4; i++) {
     chord[i].start();
   }
   playing = true;
@@ -72,7 +65,7 @@ function playChord() {
 function stopChord() {
   userStartAudio();
   playing = false;
-  for (i = 0; i < 8; i++) {
+  for (i = 0; i < 4; i++) {
     chord[i].stop();
   }
 part.pause();

@@ -1,20 +1,14 @@
 let volume_sl;
 let GRID_SIZE = 50;
-let CITY_SIZE = 100;
-let BUILDING_MAX_SIZE = 40;
-let gridSz = CITY_SIZE / BUILDING_MAX_SIZE;
-let map = [];
-let cam;
 let tree;
-let Draw;
-let ever = [];
-let objx = []; let objy = [];
 let number = [];
 let dir = [];
-let grid = [];
+//let grid = [];
 let px = [];
 let py = [];
 let w; let h; let d;
+let playinghat; let playingsnare;
+let treemod=[];
 
 function preload() {
   drum[0] = loadSound('assets/hihat.wav');
@@ -24,29 +18,25 @@ function preload() {
   drum[4] = loadSound('assets/crash.wav');
 }
 
-
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
   colorMode(RGB);
   frameRate(30);
   //volume slider;
-  volume_sl = createSlider(0, 1, 0, 0.01);
+  volume_sl = createSlider(0, 1, 0.5, 0.01);
   volume_sl.position(10, 30);
 
   for (let i = -50; i<50; i++){
-    grid[i]=[];
+  //  grid[i]=[];
     px[i+50] = 0;
     py[i+50] = 0;
     for (let j = -50; j<50; j++){
-      grid[i][j] = false;
+    //  grid[i][j] = false;
   }
 }
 
-
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 7; i++) {
     if (i < 4) {
-      chord[i] = new p5.Oscillator('sawtooth');
-    } else {
       chord[i] = new p5.Oscillator('triangle');
     }
     root[i] = midiToFreq(FMaj[F1[i] - 1]);
@@ -54,6 +44,9 @@ function setup() {
     fifth[i] = midiToFreq(FMaj[F5[i] - 1]);
     seventh[i] = midiToFreq(FMaj[F7[i] - 1]);
   }
+
+
+
 
   part = new p5.Part();
   drumPhrase[0] = new p5.Phrase('drum[0]', playHihat, pat[0]);
@@ -67,21 +60,28 @@ function setup() {
   drumPhrase[4] = new p5.Phrase('drum[4]', playCrash, pat[4]);
   part.addPhrase(drumPhrase[4]);
 
-  part.setBPM(60);
+  part.setBPM(20);
   rotz = TWO_PI;
   rotsave = 0;
   left = false;
   right = false;
-  chordi = 1;
+  chordi = 0;
+chordj = chordi % 7;
   tree = -1;
   tx = 0; ty = 0; tz = 0;
   playing = false;
   dirtoken = 0;
+  playinghat = false;
+  playingsnare = false;
 
+  chord[0].freq(root[chordj]);
+  chord[1].freq(third[chordj]);
+  chord[2].freq(fifth[chordj]);
+  chord[3].freq(seventh[chordj]);
 }
 
 function draw() {
-
+chordj = chordi % 7;
   background(217, 240, 255); //sky
   randomSeed(0);
 
@@ -90,34 +90,19 @@ function draw() {
 
   fill(100);
   noStroke();
-
+camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
   push();
-
-
-
 
   //translate(0,0,0);
   //rotateZ(PI);
   translate(tx, ty, 0);
+  //rotateX(HALF_PI);
   rotateZ(PI);
 
 
-
-
-  //rotateX(rotz);
-
-//translate(0,0,0);
-//rotateX(-(HALF_PI/3*2));
-//rotateZ(PI);
-//plane(10000, 10000);
-  // randomly determine building dimensions
-// building height
-
   // render a building
   for (let i = 0; i<=tree; i++){
-    w = random(5, GRID_SIZE);
-    h = random(5, GRID_SIZE);
-    d = random(5, GRID_SIZE);
+
     push();
     px[tree+2]=px[tree+1]; //update px;
     py[tree+2]=py[tree+1]; //update py;
@@ -125,33 +110,65 @@ function draw() {
     pop();
   }
 
-//console.log('w: '+w+' h: '+h+' d: '+d);
-
 
   ////////// sound part //////////
   if (playing===true) {
     part.loop();
-    chord[0].freq(root[chordj % 7]);
-    chord[1].freq(third[chordj % 7]);
-    chord[2].freq(fifth[chordj % 7]);
-    chord[3].freq(seventh[chordj % 7]);
-    chord[4].freq(root[chordj % 7]);
-    chord[5].freq(third[chordj % 7]);
-    chord[6].freq(fifth[chordj % 7]);
-    chord[7].freq(seventh[chordj % 7]);
+    chord[0].freq(root[chordj]);
+    chord[1].freq(third[chordj]);
+    chord[2].freq(fifth[chordj]);
+    chord[3].freq(seventh[chordj]);
     //volume part
     for (let i = 0; i < 4; i++) {
-      chord[i].amp(0.05 * volume_sl.value(), 0.01 * volume_sl.value());
+      chord[i].amp(0.3 * volume_sl.value(), 0.01 * volume_sl.value());
     }
-    for (let i = 4; i < 8; i++) {
-      chord[i].amp(0.4 * volume_sl.value(), 0.1 * volume_sl.value());
-    }
+
     for (let i = 0; i < 5; i++) {
       drum[i].setVolume(volume_sl.value());
     }
   }
 
   ///////////// control part /////////////
+
+
+
+  if(playing===true && (drum[0].isPlaying() === true||drum[1].isPlaying() === true)
+      &&left == false && right == false &&playinghat == true){
+      if(drum[2].isPlaying() === true){ //snare
+        treemod[tree] = 1; //evergreen
+      }
+      else if(drum[4].isPlaying() === true){
+        treemod[tree] = 2;
+      }
+      else if ((drum[0].isPlaying() === true||drum[1].isPlaying() === true)){
+        treemod[tree] = 0;
+      }
+    playChord();
+      go = true;
+      tree ++;
+      number[tree]=0;
+      dir[tree] = dirtoken%4;
+      switch(dir[tree]){
+        case 0:
+        py[tree+1] += 1;
+        break;
+        case 1:
+        px[tree+1] += 1;
+        break;
+        case 2:
+        py[tree+1] -= 1;
+        break;
+        case 3:
+        px[tree+1] -= 1;
+        break;
+      }
+      playinghat = false;
+  }
+  if(playing===true && drum[0].isPlaying() === false&&drum[1].isPlaying()===false&&
+  left == false && right == false){
+    playinghat = true;
+  }
+
   turnleft(px[tree+1], py[tree+1]);
   turnright(px[tree+1], py[tree+1]);
   gostraight(px[tree+1],py[tree+1]);
@@ -170,45 +187,44 @@ function keyPressed() {
 
     switch(dir[tree]){
       case 0: //x++, y+
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       py[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       px[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       px[tree+1]+=1;
         break;
       case 1: //x+, y--
 
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       px[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       py[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       py[tree+1]-=1;
         break;
       case 2: //x--,y-
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       py[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       px[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       px[tree+1]-=1;
         break;
       case 3: //x-, y++
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       px[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       py[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       py[tree+1]+=1;
         break;
     }
   }
 
-  if (keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
+  if (keyCode === UP_ARROW) {
     playChord();
-    if(keyCode === UP_ARROW){
-      gostraight();
+    gostraight();
       go = true;
       tree ++;
       number[tree]=0;
@@ -230,11 +246,6 @@ function keyPressed() {
         px[tree+1] -= 1;
         break;
       }
-    }
-    else{
-      goback();
-      back = true;
-    }
   }
   else if (keyCode ===RIGHT_ARROW) {
     if (chordi === 0) {
@@ -250,41 +261,40 @@ function keyPressed() {
 
     switch(dir[tree]){
       case 0: //x--, y+
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       py[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+      //grid[px[tree]][py[tree]]=true;
       px[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       px[tree+1]-=1;
         break;
       case 1: //x+, y++
 
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       px[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       py[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+  //    grid[px[tree]][py[tree]]=true;
       py[tree+1]+=1;
         break;
       case 2: //x++,y-
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       py[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       px[tree+1]+=1;
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       px[tree+1]+=1;
         break;
       case 3: //x-, y--
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       px[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       py[tree+1]-=1;
-      grid[px[tree]][py[tree]]=true;
+    //  grid[px[tree]][py[tree]]=true;
       py[tree+1]-=1;
         break;
       }
   } else if (key === ' ') {
     stopChord();
   }
-//console.log("px: "+px[tree]+" py: "+py[tree]);
 }

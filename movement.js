@@ -9,7 +9,7 @@ function gostraight(x, y) {
   if (go == true) {
     switch(dirtoken % 4){
       case 0:
-      console.log('ty: '+ty+' y: '+y*GRID_SIZE);
+      //console.log('ty: '+ty+' y: '+y*GRID_SIZE);
         ty += 10;
         if (y*GRID_SIZE-ty <= 0) {
           ty = y*GRID_SIZE;
@@ -34,7 +34,7 @@ function gostraight(x, y) {
         break;
 
       case 3:
-      console.log('ty: '+tx+' y: '+x*GRID_SIZE);
+      //console.log('ty: '+tx+' y: '+x*GRID_SIZE);
         tx -= 10;
         if (tx-x*GRID_SIZE <= 0) {
           tx = x*GRID_SIZE;
@@ -261,6 +261,15 @@ function turnright(x, y) {
           right = false;
         }
         break;
+
+
+
+
+
+
     }
+
+
   }
+
 }
