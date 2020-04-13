@@ -96,9 +96,12 @@ function draw() {
   //plane(10000, 10000); // draw ground
   //camera(0, 0, (height/2.0) / tan(PI*30.0 / 180.0), 0, 0, 0, 0, 1, 0);
   push();
-  translate(tx, ty, tz);
-  rotateZ(rotz);
 
+  //translate(tx, ty, tz);
+  //rotateZ(rotz+PI);
+
+translate(0,0,-100);
+rotateZ(PI);
 
   // randomly determine building dimensions
 // building height
@@ -151,7 +154,7 @@ function draw() {
 
 function keyPressed() {
 
-  if (keyCode === RIGHT_ARROW) {
+  if (keyCode === LEFT_ARROW) {
     chordi++;
     playChord();
     right = true;
@@ -227,7 +230,7 @@ function keyPressed() {
       back = true;
     }
   }
-  else if (keyCode === LEFT_ARROW) {
+  else if (keyCode ===RIGHT_ARROW) {
     if (chordi === 0) {
       chordi = 6;
     } else {

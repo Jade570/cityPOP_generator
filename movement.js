@@ -183,7 +183,7 @@ function turnright() {
           ty = versave + BUILDING_MAX_SIZE;
           tx = horsave + BUILDING_MAX_SIZE;
 
-  
+
 
           rotsave = rotz;
           versave = ty;
@@ -216,7 +216,7 @@ function turnright() {
         tx -= BUILDING_MAX_SIZE / 40;
 
         if (rotz - rotsave <= -HALF_PI) {
-          rotz = rotsave - HALF_PI;
+        //  rotz = rotsave - HALF_PI;
           ty = versave - BUILDING_MAX_SIZE;
           tx = horsave - BUILDING_MAX_SIZE;
 
