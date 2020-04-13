@@ -7,7 +7,7 @@ let dir = [];
 let px = [];
 let py = [];
 let w; let h; let d;
-let playinghat; let playingsnare;
+let playinghat; let playingsnare; let playingcrash;
 let treemod=[];
 
 function preload() {
@@ -36,9 +36,8 @@ function setup() {
 }
 
   for (let i = 0; i < 4; i++) {
-    if (i < 4) {
       chord[i] = new p5.Oscillator('triangle');
-    }
+
     root[i] = midiToFreq(FMaj[F1[i] - 1]);
     third[i] = midiToFreq(FMaj[F3[i] - 1]);
     fifth[i] = midiToFreq(FMaj[F5[i] - 1]);
@@ -130,18 +129,16 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
 
   ///////////// control part /////////////
 
-
-
-  if(playing===true && (drum[0].isPlaying() === true||drum[1].isPlaying() === true)
-      &&left == false && right == false &&playinghat == true){
+  if(playing===true && (drum[0].isPlaying() === true||drum[1].isPlaying() === true ||drum[4].isPlaying()===true)
+      &&left == false && right == false &&playinghat == true && playingcrash == true){
       if(drum[2].isPlaying() === true){ //snare
         treemod[tree] = 1; //evergreen
       }
-      else if(drum[4].isPlaying() === true){
-        treemod[tree] = 2;
-      }
       else if ((drum[0].isPlaying() === true||drum[1].isPlaying() === true)){
         treemod[tree] = 0;
+      }
+      else if(drum[4].isPlaying() === true){
+        treemod[tree] = 2;
       }
     playChord();
       go = true;
@@ -163,11 +160,18 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
         break;
       }
       playinghat = false;
+      playingcrash = false;
   }
+
   if(playing===true && drum[0].isPlaying() === false&&drum[1].isPlaying()===false&&
   left == false && right == false){
     playinghat = true;
   }
+  if(playing===true && drum[4].isPlaying() === false&&
+  left == false && right == false){
+    playingcrash = true;
+  }
+
 
   turnleft(px[tree+1], py[tree+1]);
   turnright(px[tree+1], py[tree+1]);
@@ -221,32 +225,6 @@ function keyPressed() {
         break;
     }
   }
-
-  if (keyCode === UP_ARROW) {
-    playChord();
-    gostraight();
-      go = true;
-      tree ++;
-      number[tree]=0;
-      dir[tree] = dirtoken%4;
-      switch(dir[tree]){
-        case 0:
-        py[tree+1] += 1;
-        break;
-
-        case 1:
-        px[tree+1] += 1;
-        break;
-
-        case 2:
-        py[tree+1] -= 1;
-        break;
-
-        case 3:
-        px[tree+1] -= 1;
-        break;
-      }
-  }
   else if (keyCode ===RIGHT_ARROW) {
     if (chordi === 0) {
       chordi = 3;
@@ -295,6 +273,12 @@ function keyPressed() {
         break;
       }
   } else if (key === ' ') {
-    stopChord();
+      if (playing == true){
+            stopChord();
+      }
+      else{
+            playing = true;
+      }
+
   }
 }

@@ -9,7 +9,7 @@ function house(width, height, depth,px ,py ) {
     box(width, height, depth);
     fill(r,g,b);
     beginShape(TRIANGLE_FAN);
-    let x =random(2, depth / 4);
+    let x =random(depth/6, depth / 2);
     let step = TWO_PI / 4;
 
     let radius = width;//sqrt(pow(width, 2) + pow(height, 2))
@@ -496,26 +496,26 @@ function build(pi,num,dir){
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        cherrytree(w,h,d,px[pi]-1,py[pi]);
+        cherrytree(w,h,d,px[pi]-1,py[pi]+1);
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        cherrytree(w,h,d,px[pi]+1,py[pi]);
+        cherrytree(w,h,d,px[pi]+1,py[pi]+1);
         break;
 
         case 1:
         w = random(10, GRID_SIZE);
         h = random(10, GRID_SIZE);
         d = random(10, GRID_SIZE);
-        evergreen(w,h,d,px[pi]-1,py[pi]);
+        evergreen(w,h,d,px[pi]-1,py[pi]+1);
         w = random(10, GRID_SIZE);
         h = random(10, GRID_SIZE);
         d = random(10, GRID_SIZE);
-        evergreen(w,h,d,px[pi]+1,py[pi]);
+        evergreen(w,h,d,px[pi]+1,py[pi]+1);
         break;
 
         case 2:
-        traffic(px[pi]-1,py[pi]);
+        traffic(px[pi]-1,py[pi]+1);
       }
 
       w = random(20, GRID_SIZE);
@@ -552,24 +552,24 @@ function build(pi,num,dir){
           w = random(5, GRID_SIZE);
           h = random(5, GRID_SIZE);
           d = random(5, GRID_SIZE);
-          cherrytree(w,h,d,px[pi],py[pi]-1);
+          cherrytree(w,h,d,px[pi]+1,py[pi]-1);
           w = random(5, GRID_SIZE);
           h = random(5, GRID_SIZE);
           d = random(5, GRID_SIZE);
-          cherrytree(w,h,d,px[pi],py[pi]+1);
+          cherrytree(w,h,d,px[pi]+1,py[pi]+1);
           break;
           case 1:
           w = random(5, GRID_SIZE);
           h = random(5, GRID_SIZE);
           d = random(5, GRID_SIZE);
-          evergreen(w,h,d,px[pi],py[pi]-1);
+          evergreen(w,h,d,px[pi]+1,py[pi]-1);
           w = random(5, GRID_SIZE);
           h = random(5, GRID_SIZE);
           d = random(5, GRID_SIZE);
-          evergreen(w,h,d,px[pi],py[pi]+1);
+          evergreen(w,h,d,px[pi]+1,py[pi]+1);
           break;
           case 2:
-          traffic(px[pi], py[pi]+1);
+          traffic(px[pi]+1, py[pi]+1);
           break;
         }
         w = random(20, GRID_SIZE);
@@ -589,26 +589,26 @@ function build(pi,num,dir){
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        cherrytree(w,h,d,px[pi]-1,py[pi]);
+        cherrytree(w,h,d,px[pi]-1,py[pi]-1);
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        cherrytree(w,h,d,px[pi]+1,py[pi]);
+        cherrytree(w,h,d,px[pi]+1,py[pi]-1);
         break;
 
         case 1:
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        evergreen(w,h,d,px[pi]-1,py[pi]);
+        evergreen(w,h,d,px[pi]-1,py[pi]-1);
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        evergreen(w,h,d,px[pi]+1,py[pi]);
+        evergreen(w,h,d,px[pi]+1,py[pi]-1);
         break;
 
         case 2:
-        traffic(px[pi]-1, py[pi]);
+        traffic(px[pi]-1, py[pi]-1);
         break;
       }
 
@@ -630,26 +630,26 @@ function build(pi,num,dir){
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        cherrytree(w,h,d,px[pi],py[pi]-1);
+        cherrytree(w,h,d,px[pi]-1,py[pi]-1);
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        cherrytree(w,h,d,px[pi],py[pi]+1);
+        cherrytree(w,h,d,px[pi]-1,py[pi]+1);
         break;
 
         case 1:
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        evergreen(w,h,d,px[pi],py[pi]-1);
+        evergreen(w,h,d,px[pi]-1,py[pi]-1);
         w = random(5, GRID_SIZE);
         h = random(5, GRID_SIZE);
         d = random(5, GRID_SIZE);
-        evergreen(w,h,d,px[pi],py[pi]+1);
+        evergreen(w,h,d,px[pi]-1,py[pi]+1);
         break;
 
         case 2:
-        traffic(px[pi], py[pi]+1);
+        traffic(px[pi]-1, py[pi]+1);
         break;
       }
       w = random(20, GRID_SIZE);
