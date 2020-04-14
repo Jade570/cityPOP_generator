@@ -64,7 +64,7 @@ function setup() {
   rotsave = 0;
   left = false;
   right = false;
-  chordi = 0;
+  chordi = 3;
 chordj = chordi % 7;
   tree = -1;
   tx = 0; ty = 0; tz = 0;
@@ -128,18 +128,17 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
   }
 
   ///////////// control part /////////////
-
   if(playing===true && (drum[0].isPlaying() === true||drum[1].isPlaying() === true ||drum[4].isPlaying()===true)
-      &&left == false && right == false &&playinghat == true && playingcrash == true){
-      if(drum[2].isPlaying() === true){ //snare
-        treemod[tree] = 1; //evergreen
-      }
-      else if ((drum[0].isPlaying() === true||drum[1].isPlaying() === true)){
-        treemod[tree] = 0;
-      }
-      else if(drum[4].isPlaying() === true){
-        treemod[tree] = 2;
-      }
+       &&playinghat == true && playingcrash == true){
+         if(drum[2].isPlaying() === true){ //snare
+           treemod[tree] = 1; //evergreen
+         }
+         else if ((drum[0].isPlaying() === true||drum[1].isPlaying() === true)){
+           treemod[tree] = 0;
+         }
+         else if(drum[4].isPlaying() === true){
+           treemod[tree] = 2;
+         }
     playChord();
       go = true;
       tree ++;
@@ -163,15 +162,14 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
       playingcrash = false;
   }
 
-  if(playing===true && drum[0].isPlaying() === false&&drum[1].isPlaying()===false&&
-  left == false && right == false){
-    playinghat = true;
+  if(playing===true && drum[0].isPlaying() === false&&drum[1].isPlaying()===false
+){
+    playinghat = true;    //reset flag
   }
-  if(playing===true && drum[4].isPlaying() === false&&
-  left == false && right == false){
-    playingcrash = true;
+  if(playing===true && drum[4].isPlaying() === false
+){
+    playingcrash = true;    //reset flag
   }
-
 
   turnleft(px[tree+1], py[tree+1]);
   turnright(px[tree+1], py[tree+1]);
@@ -180,99 +178,140 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
 
 
 function keyPressed() {
-
-  if (keyCode === LEFT_ARROW) {
-    chordi+=1;
-    playChord();
-    right = true;
-    tree ++;
-    number[tree]=1;
-    dir[tree] = dirtoken%4;
-
-    switch(dir[tree]){
-      case 0: //x++, y+
-      //grid[px[tree]][py[tree]]=true;
-      py[tree+1]+=1;
-      //grid[px[tree]][py[tree]]=true;
-      px[tree+1]+=1;
-      //grid[px[tree]][py[tree]]=true;
-      px[tree+1]+=1;
-        break;
-      case 1: //x+, y--
-
-      //grid[px[tree]][py[tree]]=true;
-      px[tree+1]+=1;
-      //grid[px[tree]][py[tree]]=true;
-      py[tree+1]-=1;
-      //grid[px[tree]][py[tree]]=true;
-      py[tree+1]-=1;
-        break;
-      case 2: //x--,y-
-      //grid[px[tree]][py[tree]]=true;
-      py[tree+1]-=1;
-      //grid[px[tree]][py[tree]]=true;
-      px[tree+1]-=1;
-      //grid[px[tree]][py[tree]]=true;
-      px[tree+1]-=1;
-        break;
-      case 3: //x-, y++
-      //grid[px[tree]][py[tree]]=true;
-      px[tree+1]-=1;
-    //  grid[px[tree]][py[tree]]=true;
-      py[tree+1]+=1;
-      //grid[px[tree]][py[tree]]=true;
-      py[tree+1]+=1;
-        break;
-    }
-  }
-  else if (keyCode ===RIGHT_ARROW) {
-    if (chordi === 0) {
-      chordi = 3;
-    } else {
-      chordi--;
-    }
-    playChord();
-    left = true;
-    tree ++;
-    number[tree]=2;
-    dir[tree] = dirtoken%4;
-
-    switch(dir[tree]){
-      case 0: //x--, y+
-      //grid[px[tree]][py[tree]]=true;
-      py[tree+1]+=1;
-      //grid[px[tree]][py[tree]]=true;
-      px[tree+1]-=1;
-    //  grid[px[tree]][py[tree]]=true;
-      px[tree+1]-=1;
-        break;
-      case 1: //x+, y++
-
-    //  grid[px[tree]][py[tree]]=true;
-      px[tree+1]+=1;
-    //  grid[px[tree]][py[tree]]=true;
-      py[tree+1]+=1;
-  //    grid[px[tree]][py[tree]]=true;
-      py[tree+1]+=1;
-        break;
-      case 2: //x++,y-
-    //  grid[px[tree]][py[tree]]=true;
-      py[tree+1]-=1;
-    //  grid[px[tree]][py[tree]]=true;
-      px[tree+1]+=1;
-    //  grid[px[tree]][py[tree]]=true;
-      px[tree+1]+=1;
-        break;
-      case 3: //x-, y--
-    //  grid[px[tree]][py[tree]]=true;
-      px[tree+1]-=1;
-    //  grid[px[tree]][py[tree]]=true;
-      py[tree+1]-=1;
-    //  grid[px[tree]][py[tree]]=true;
-      py[tree+1]-=1;
-        break;
+  switch(dir[tree]){
+    case 0: //up
+    if (keyCode === LEFT_ARROW) {
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
       }
-  } else if (key === ' ') {
+      playChord();
+      right = true;
+      tree ++;
+      number[tree]=1;
+      dir[tree] = dirtoken%4;
+      py[tree+1]+=1;
+      px[tree+1]+=1;
+      px[tree+1]+=1;
+    }
+    else if (keyCode === RIGHT_ARROW){
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
+      }
+      playChord();
+      left = true;
+      tree ++;
+      number[tree]=2;
+      dir[tree] = dirtoken%4;
+      py[tree+1]+=1;
+      px[tree+1]-=1;
+      px[tree+1]-=1;
+    }
+    break;
+    case 1: //right
+    if (keyCode === DOWN_ARROW){
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
+      }
+      playChord();
+      right = true;
+      tree ++;
+      number[tree]=1;
+      dir[tree] = dirtoken%4;
+      px[tree+1]+=1;
+      py[tree+1]-=1;
+      py[tree+1]-=1;
+    }
+    else if (keyCode === UP_ARROW){
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
+      }
+      playChord();
+      left = true;
+      tree ++;
+      number[tree]=2;
+      dir[tree] = dirtoken%4;
+      px[tree+1]+=1;
+      py[tree+1]+=1;
+      py[tree+1]+=1;
+    }
+    break;
+    case 2: //down
+    if (keyCode === RIGHT_ARROW){
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
+      }
+      playChord();
+      right = true;
+      tree ++;
+      number[tree]=1;
+      dir[tree] = dirtoken%4;
+      py[tree+1]-=1;
+      px[tree+1]-=1;
+      px[tree+1]-=1;
+    }
+    else if (keyCode === LEFT_ARROW){
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
+      }
+      playChord();
+      left = true;
+      tree ++;
+      number[tree]=2;
+      dir[tree] = dirtoken%4;
+      py[tree+1]-=1;
+      px[tree+1]+=1;
+      px[tree+1]+=1;
+    }
+
+    break;
+    case 3:
+    if (keyCode === UP_ARROW){
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
+      }
+      playChord();
+      right = true;
+      tree ++;
+      number[tree]=1;
+      dir[tree] = dirtoken%4;
+      px[tree+1]-=1;
+      py[tree+1]+=1;
+      py[tree+1]+=1;
+
+    }
+    else if (keyCode === DOWN_ARROW){
+      if (chordi === 0) {
+        chordi = 3;
+      } else {
+        chordi--;
+      }
+      playChord();
+      left = true;
+      tree ++;
+      number[tree]=2;
+      dir[tree] = dirtoken%4;
+      px[tree+1]-=1;
+      py[tree+1]-=1;
+      py[tree+1]-=1;
+    }
+    break;
+  }
+
+ if (key === ' ') {
       if (playing == true){
             stopChord();
       }
