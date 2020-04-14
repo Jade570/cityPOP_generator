@@ -529,29 +529,13 @@ function build(pi,num,dir){
 
       w = random(20, GRID_SIZE);
       h = random(20, GRID_SIZE);
-      d = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE*2);
       house(w,h,d,px[pi]+2,py[pi]);
       w = random(20, GRID_SIZE);
       h = random(20, GRID_SIZE);
-      d = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE*2);
       house(w,h,d,px[pi]-2,py[pi]);
-      /*
-        if(grid[px[pi]-1,py[pi]] == true){
-          if(px[pi]-1,py[pi]==true){
-            //no tree grown
-          }
-          else{
-            cherrytree(w,h,d,px[pi]+1,py[pi]);
-          }
-        }
-        else if(grid[px[pi]+1][py[pi]]==true){
-          cherrytree(w,h,d,px[pi]-1,py[pi]);
-        }
-        else{
-          cherrytree(w,h,d,px[pi]-1,py[pi]);
-          cherrytree(w,h,d,px[pi]+1,py[pi]);
-        }
-*/
+
         break;
 
       case 1: //x++
@@ -583,11 +567,11 @@ function build(pi,num,dir){
         }
         w = random(20, GRID_SIZE);
         h = random(20, GRID_SIZE);
-        d = random(20, GRID_SIZE);
+        d = random(20, GRID_SIZE*2);
         house(w,h,d,px[pi],py[pi]-2);
         w = random(20, GRID_SIZE);
         h = random(20, GRID_SIZE);
-        d = random(20, GRID_SIZE);
+        d = random(20, GRID_SIZE*2);
         house(w,h,d,px[pi],py[pi]+2);
         break;
 
@@ -623,11 +607,11 @@ function build(pi,num,dir){
 
       w = random(20, GRID_SIZE);
       h = random(20, GRID_SIZE);
-      d = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE*2);
       house(w,h,d,px[pi]+2,py[pi]);
       w = random(20, GRID_SIZE);
       h = random(20, GRID_SIZE);
-      d = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE*2);
       house(w,h,d,px[pi]-2,py[pi]);
       break;
 
@@ -663,11 +647,11 @@ function build(pi,num,dir){
       }
       w = random(20, GRID_SIZE);
       h = random(20, GRID_SIZE);
-      d = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE*2);
       house(w,h,d,px[pi],py[pi]-2);
       w = random(20, GRID_SIZE);
       h = random(20, GRID_SIZE);
-      d = random(20, GRID_SIZE);
+      d = random(20, GRID_SIZE*2);
       house(w,h,d,px[pi],py[pi]+2);
       break;
     }
@@ -741,13 +725,13 @@ function build(pi,num,dir){
         for (let i = 0; i<4; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]-2,py[pi]+i);
         }
         for (let i = -1; i<2; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]+3);
         }
         break;
@@ -820,13 +804,13 @@ function build(pi,num,dir){
         for (let i = -1; i<3; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+3,py[pi]+i);
         }
         for (let i = 0; i<3; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]+2);
         }
 
@@ -898,13 +882,13 @@ function build(pi,num,dir){
         for (let i = -3; i<=0; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+2,py[pi]+i);
         }
         for (let i = -1; i<2; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]-3);
         }
         break;
@@ -976,13 +960,13 @@ function build(pi,num,dir){
         for (let i = -2; i<2; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]-3,py[pi]+i);
         }
         for (let i = -3; i<1; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]-2);
         }
         break;
@@ -1058,13 +1042,13 @@ function build(pi,num,dir){
         for (let i = 0; i<3; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+2,py[pi]+i);
         }
         for (let i = -1; i<3; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]+3);
         }
         break;
@@ -1134,13 +1118,13 @@ function build(pi,num,dir){
         for (let i = -2; i<2; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+3,py[pi]+i);
         }
         for (let i = 0; i<3; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]-2);
         }
         break;
@@ -1210,13 +1194,13 @@ function build(pi,num,dir){
         for (let i = -3; i<1; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]-2,py[pi]+i);
         }
         for (let i = -1; i<2; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]-3);
         }
         break;
@@ -1287,13 +1271,13 @@ function build(pi,num,dir){
         for (let i = -1; i<3; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]-3,py[pi]+i);
         }
         for (let i = -3; i<1; i++){
           w = random(20, GRID_SIZE);
           h = random(20, GRID_SIZE);
-          d = random(20, GRID_SIZE);
+          d = random(20, GRID_SIZE*2);
           house(w,h,d,px[pi]+i,py[pi]+2);
         }
 
