@@ -128,7 +128,7 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
 
   ///////////// control part /////////////
   if(playing===true && (drum[0].isPlaying() === true||drum[1].isPlaying() === true ||drum[4].isPlaying()===true)
-       &&playinghat == true && playingcrash == true){
+       &&playinghat == true && playingcrash == true && left == false && right == false){
          if(drum[2].isPlaying() === true){ //snare
            treemod[tree] = 1; //evergreen
          }
