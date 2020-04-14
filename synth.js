@@ -100,5 +100,7 @@ function stopChord() {
     chord[i].stop();
   }
 part.pause();
-
+for(let i = 0; i<4; i++ ){
+  bassseq[i].stop();
+}
 }
