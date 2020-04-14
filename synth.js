@@ -1,6 +1,5 @@
 let chord = [];
 let FMaj = [53, 55, 57, 58, 60, 62, 64, 65,67,69,70,72];
-
 let bassseq = [];
 let F1 = [5, 2, 6, 3]; //G-D-A-E
 let F3 = [7, 4, 8, 5];
@@ -16,7 +15,12 @@ let bass = new Tone.MonoSynth({
   //"decay" : 0.1,
   "sustain" : 0.01,
   "release" : 1
-}
+},
+
+"filter":{
+      frequency : 200,
+      type: "lowpass"
+  }
 
 }).toMaster();
 bassseq[0] = new Tone.Sequence(callback,['C2'],"16n");
