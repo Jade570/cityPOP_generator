@@ -21,6 +21,7 @@ function preload() {
 }
 
 function setup() {
+
   let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
   colorMode(RGB);
   frameRate(60);
@@ -28,6 +29,7 @@ function setup() {
   volume_sl = createSlider(0, 1, 0.5, 0.01);
   volume_sl.position(10, 30);
 
+  dir[0]=0;
   for (let i = -50; i<50; i++){
   //  grid[i]=[];
     px[i+50] = 0;
@@ -42,7 +44,6 @@ function setup() {
 
   for (let i = 0; i < 4; i++) {
       chord[i] = new p5.Oscillator('triangle');
-
     root[i] = midiToFreq(FMaj[F1[i] - 1]);
     third[i] = midiToFreq(FMaj[F3[i] - 1]);
     fifth[i] = midiToFreq(FMaj[F5[i] - 1]);
@@ -64,6 +65,7 @@ function setup() {
   drumPhrase[4] = new p5.Phrase('drum[4]', playCrash, pat[4]);
   part.addPhrase(drumPhrase[4]);
 
+  Tone.Transport.bpm.value = 30;
   part.setBPM(30);
   rotz = TWO_PI;
   rotsave = 0;
@@ -85,7 +87,6 @@ chordj = chordi % 7;
 }
 
 function draw() {
-
 chordj = chordi % 4;
   background(217, 240, 255); //sky
   randomSeed(0);
@@ -123,22 +124,7 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
   }
 
 
-  ////////// sound part //////////
-  if (playing===true) {
-    part.loop();
-    chord[0].freq(root[chordj]);
-    chord[1].freq(third[chordj]);
-    chord[2].freq(fifth[chordj]);
-    chord[3].freq(seventh[chordj]);
-    //volume part
-    for (let i = 0; i < 4; i++) {
-      chord[i].amp(0.3 * volume_sl.value(), 0.01 * volume_sl.value());
-    }
 
-    for (let i = 0; i < 5; i++) {
-      drum[i].setVolume(volume_sl.value());
-    }
-  }
 
   ///////////// control part /////////////
   if(playing===true && (drum[0].isPlaying() === true||drum[1].isPlaying() === true ||drum[4].isPlaying()===true)
@@ -187,6 +173,32 @@ camera(0, 500, (height/4) / tan(PI / 6), 0, 0, 0, 0, 1, 0);
   turnleft(px[tree+1], py[tree+1]);
   turnright(px[tree+1], py[tree+1]);
   gostraight(px[tree+1],py[tree+1]);
+
+  ////////// sound part //////////
+  if (playing===true) {
+    Tone.Transport.start();
+    bassseq[chordj].start();
+    for(let i = 0; i<chordj; i++){
+      bassseq[i].stop();
+    }
+    for(let i = 3; i>chordj; i-- ){
+      bassseq[i].stop();
+    }
+    part.loop();
+    chord[0].freq(root[chordj]);
+    chord[1].freq(third[chordj]);
+    chord[2].freq(fifth[chordj]);
+    chord[3].freq(seventh[chordj]);
+    //volume part
+    for (let i = 0; i < 4; i++) {
+      chord[i].amp(0.3 * volume_sl.value(), 0.01 * volume_sl.value());
+    }
+
+    for (let i = 0; i < 5; i++) {
+      drum[i].setVolume(volume_sl.value());
+    }
+
+  }
 }
 
 
@@ -330,6 +342,7 @@ function keyPressed() {
       }
       else{
             playing = true;
+
       }
 
   }
