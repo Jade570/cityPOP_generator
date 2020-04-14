@@ -8,6 +8,7 @@ Written in P5.js & Tone.js.
 ## Source Used
 ### drum sources
 - All from [Freesound.org](https://freesound.org/browse/)
+
   - kick: ["acoustic kick.wav" by karolist](https://freesound.org/people/karolist/sounds/371192/)
   - closed HH:["HiHat3.wav" by Spol](https://freesound.org/people/Spol/sounds/78217/)
   - open HH:["OpenHiHat1.wav" by Spol](https://freesound.org/people/Spol/sounds/78223/)
