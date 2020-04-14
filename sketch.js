@@ -9,6 +9,7 @@ let py = [];
 let w; let h; let d;
 let playinghat; let playingsnare; let playingcrash;
 let treemod=[];
+let font;
 
 function preload() {
   drum[0] = loadSound('assets/hihat.wav');
@@ -16,6 +17,7 @@ function preload() {
   drum[2] = loadSound('assets/snare.wav');
   drum[3] = loadSound('assets/kick.wav');
   drum[4] = loadSound('assets/crash.wav');
+  font = loadFont('assets/NotoSansKR-Black.otf');
 }
 
 function setup() {
@@ -33,6 +35,9 @@ function setup() {
     for (let j = -50; j<50; j++){
     //  grid[i][j] = false;
   }
+  textFont(font);
+  textAlign(LEFT, CENTER);
+  textSize(20);
 }
 
   for (let i = 0; i < 4; i++) {
@@ -80,9 +85,17 @@ chordj = chordi % 7;
 }
 
 function draw() {
+
 chordj = chordi % 4;
   background(217, 240, 255); //sky
   randomSeed(0);
+  push();
+//  translate(0,500,(height/4) / tan(PI / 6));
+translate(0,-500,-((height/4) / tan(PI / 6)));
+  rotateX(HALF_PI*3.45);
+  fill(0);
+  text('start/stop: spacebar\nchange direction:arrow keys',-(windowWidth/5*4),-(windowHeight/3*2));
+  pop();
 
   lights(); //light
   directionalLight(255, 251, 242, 1, 0, -1);
