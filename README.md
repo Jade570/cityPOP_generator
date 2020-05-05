@@ -4,6 +4,7 @@ city generator for 2020-1 Computer Graphics @ Sogang Univ.
 A city visual+music generator which interacts with key inputs.
 
 Written in P5.js & Tone.js.
+[Link](https://jade570.github.io/cityPOP_generator/)
 
 ## Source Used
 ### drum sources
