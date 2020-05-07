@@ -1,4 +1,4 @@
-# cityPOP_generator
+# 🏙️cityPOP_generator
 city generator for 2020-1 Computer Graphics @ Sogang Univ.
 
 A city visual+music generator which interacts with key inputs.
@@ -20,7 +20,12 @@ Written in P5.js & Tone.js.
 - [Google Font Noto Sans KR](https://fonts.google.com/specimen/Noto+Sans+KR?query=noto+sans&selection.family=Noto+Sans+KR:wght@900&sidebar.open)
 
 ## Manual
-```
-start&stop: space bar
-change direction: arrow keys
-```
+**start&stop**: space bar
+
+**change direction**: arrow keys
+
+
+## Concept
+🏙️Build your city as you make your music!
+
+The music changes as you change direction of the road of your city.
