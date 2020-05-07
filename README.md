@@ -18,3 +18,9 @@ Written in P5.js & Tone.js.
     - [InspectorJ's website](https://www.jshaw.co.uk/)
 ### font
 - [Google Font Noto Sans KR](https://fonts.google.com/specimen/Noto+Sans+KR?query=noto+sans&selection.family=Noto+Sans+KR:wght@900&sidebar.open)
+
+## Manual
+```
+start&stop: space bar
+change direction: arrow keys
+```
