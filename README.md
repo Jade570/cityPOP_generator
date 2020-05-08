@@ -26,6 +26,6 @@ Written in P5.js & Tone.js.
 
 
 ## Concept
-🏙️Build your city as you make your music!
+Build your city as you make your music!
 
 The music changes as you change direction of the road of your city.
